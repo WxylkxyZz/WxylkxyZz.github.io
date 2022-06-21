@@ -169,7 +169,7 @@ window.addEventListener('load',preloader.endLoading())</script><div class="js-pj
   const init = () => {
     twikoo.init(Object.assign({
       el: '#twikoo-wrap',
-      envId: 'https://twikoo-six-eta.vercel.app',
+      envId: 'https://twikoo-7phdt69h5-coisinizz.vercel.app',
       region: '',
       onCommentLoaded: function () {
         btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
@@ -181,7 +181,7 @@ window.addEventListener('load',preloader.endLoading())</script><div class="js-pj
     const countELement = document.getElementById('twikoo-count')
     if(!countELement) return
     twikoo.getCommentsCount({
-      envId: 'https://twikoo-six-eta.vercel.app',
+      envId: 'https://twikoo-7phdt69h5-coisinizz.vercel.app',
       region: '',
       urls: [window.location.pathname],
       includeReply: false
@@ -202,7 +202,7 @@ window.addEventListener('load',preloader.endLoading())</script><div class="js-pj
       setTimeout(runFn,0)
       return
     } 
-    getScript('https://cdn.staticfile.org/twikoo/1.5.11/twikoo.all.min.js').then(runFn)
+    getScript('https://cdn.jsdelivr.net/npm/twikoo@1/dist/twikoo.all.min.js').then(runFn)
   }
 
   if ('Twikoo' === 'Twikoo' || !false) {
