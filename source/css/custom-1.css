@@ -1,0 +1,12 @@
+/* 注入 CSS 文件修改 CSS 变量使用示例 */
+
+:root {
+    /* 设置模块卡片的边框圆角 */
+    --box-border-radius: 30px;
+    
+    /* 设置首页文章模块鼠标悬浮时的缩放级别 */
+    --home-post-hover-scale: 1.1;
+    
+    /* 设置 Header 头部高度 */
+    --header-height: 67px; 
+ }
