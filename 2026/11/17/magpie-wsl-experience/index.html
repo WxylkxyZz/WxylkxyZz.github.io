@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="WxylkxyZz">
+    
+    <title>
+        
+            127.0.0.1 到底是谁的？Claude Desktop 连 WSL2 本地网关的九层排障记 |
+        
+        Keep Throb
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="https://cdn.statically.io/gh/CoisiniZz/images@main/flows/image.2yni2qpf428.webp">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/font/css/brands.min.css">
+    
+        
+            
+        
+            
+                
+<link rel="stylesheet" href="/css/custom-1.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"wxylkxyzz.github.io","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#99CC66","title":"Keep Throb","author":"WxylkxyZz","avatar":"https://cdn.statically.io/gh/CoisiniZz/images@main/flows/head.2rn5pc5z7u20.webp","logo":"https://cdn.statically.io/gh/CoisiniZz/images@main/flows/image.2yni2qpf428.webp","favicon":"https://cdn.statically.io/gh/CoisiniZz/images@main/flows/image.2yni2qpf428.webp"},"menu":{"home":"/ || fa-solid fa-house","archives":"/archives || fa-solid fa-box-archive","about":"/about || fa-solid fa-people-pulling"},"first_screen":{"enable":true,"background_img":"https://cdn.statically.io/gh/CoisiniZz/images@main/flows/bg.2qj30lgpdqo0.svg","background_img_dark":"https://cdn.statically.io/gh/CoisiniZz/images@main/flows/bg.2qj30lgpdqo0.svg","description":"一片树林里分出两条路 || 而我选择了人迹更少的一条，从此决定了我一生的道路","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/WxylkxyZz","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":"VelproMe@gmail.com","telegram":"https://t.me/VelproMe"}},"scroll":{"progress_bar":true,"percent":true,"hide_header":false},"home":{"announcement":"却顾所来径 苍苍横翠微","category":true,"tag":true,"post_datetime":"updated || fa-solid fa-hourglass-half"},"post":{"author_badge":{"enable":true,"level_badge":false,"custom_badge":["One","Two","Three","菜鸡"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null},"created_datetime_icon":"fa-solid fa-pen-to-square","updated_datetime_icon":"fa-solid fa-arrows-rotate"},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.36"},"waline":{"server_url":null,"reaction":false,"version":"3.2.1"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":true},"footer":{"since":2020,"word_count":true,"site_deploy":{"enable":true,"provider":"github","url":"https://github.com/WxylkxyZz"},"record":{"enable":false,"list":[{"code":null,"link":null}]}},"inject":{"enable":true,"css":[null,"/css/custom-1.css"],"js":[null,"/js/custom-1.js"]},"root":"","source_data":{"links":[{"name":"XPoet","link":"https://xpoet.cn/","description":"懒惰是程序员第一生产力","avatar":"https://cdn.staticaly.com/gh/XPoet/image-hosting@master/common-use/avatar.jpg"},{"name":"吾爱破解","link":"https://www.52pojie.cn/","description":null,"avatar":null}]},"version":"4.1.3"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="https://cdn.statically.io/gh/CoisiniZz/images@main/flows/image.2yni2qpf428.webp">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               Keep Throb
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-house"></i>
+                                
+                                首页
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-box-archive"></i>
+                                
+                                归档
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-people-pulling"></i>
+                                
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/"
+                    >首页</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives"
+                    >归档</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about"
+                    >关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        127.0.0.1 到底是谁的？Claude Desktop 连 WSL2 本地网关的九层排障记
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="https://cdn.statically.io/gh/CoisiniZz/images@main/flows/head.2rn5pc5z7u20.webp">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">WxylkxyZz</span>
+                                
+                                    <span class="author-badge">Two</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-pen-to-square"></i>&nbsp;
+                <span class="datetime">2026-11-17 14:28:27</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-arrows-rotate"></i>&nbsp;
+                <span class="datetime" data-updated="Tue Nov 17 2026 14:28:27 GMT+0800">2026-11-17 14:28:27</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/WSL/">WSL</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Claude-Desktop/">Claude Desktop</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Magpie/">Magpie</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>3.6k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>15 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+                        <div class="post-aging-tips"
+                             data-update-date="Tue Nov 17 2026 14:28:27 GMT+0800"
+                             data-aging-days="30"
+                        >
+                            <i class="fa-solid fa-circle-exclamation"></i>本文距离上次更新已过去 <span class="days">0</span> 天，部分内容可能已经过时，请注意甄别。
+                        </div>
+                    
+
+                    <blockquote>
+<p>一次看似”网络不通”的故障，最后挖出九个彼此独立的坑：从 NAT 语义、回环转发递归，到 systemd 沙箱阻断进程互操作、keep-alive 占满连接槽位。没有一层是靠猜的。</p>
+</blockquote>
+<p><strong>环境</strong>：Windows 10 IoT Enterprise LTSC 21H2 (10.0.19044.7846) + WSL2 2.7.14.0 &#x2F; Ubuntu-24.04 + Claude Desktop 自定义网关模式 + Magpie 0.1.4342<br><strong>最后更新</strong>：2026-11-17</p>
+<span id="more"></span>
+
+<h2 id="事情的起点"><a href="#事情的起点" class="headerlink" title="事情的起点"></a>事情的起点</h2><p>Claude Desktop 的 Code 标签页可以连远程会话。我想让它跑在本机的 WSL2 Ubuntu 里，推理则走同样在本机的 Magpie 网关——听起来只要两边能通就行。</p>
+<p>结果界面只给了一句：</p>
+<blockquote>
+<p>Check your internet connection, VPN, or proxy and try again.</p>
+</blockquote>
+<p>而 Magpie 的日志里，一条请求都没有。</p>
+<p>这篇文章记录我是怎么把这句话拆成九层根因、以及最后那套稳定跑起来的方案的。文中不涉及任何密钥或凭据。</p>
+<hr>
+<h2 id="最终跑起来的链路长什么样"><a href="#最终跑起来的链路长什么样" class="headerlink" title="最终跑起来的链路长什么样"></a>最终跑起来的链路长什么样</h2><p>让 <strong>Claude Desktop 的 Code 标签页</strong> 能创建并正常使用 <strong>WSL2 Ubuntu-24.04 会话</strong>，而推理走本机 Windows 上的 <strong>Magpie 网关</strong>。</p>
+<p>最终生效的链路：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Claude Desktop（Windows 宿主）</span><br><span class="line">  └─ SSH 启动 Ubuntu-24.04 内的 ccd-cli</span><br><span class="line">       └─ CLI 访问 http://127.0.0.1:3425（WSL 自身回环）</span><br><span class="line">            └─ claude-ipv6-bridge.service（WSL systemd 常驻）</span><br><span class="line">                 └─ 经 WSL interop 启动 Windows python.exe 工作进程</span><br><span class="line">                      └─ 连接 Windows [::1]:3425</span><br><span class="line">                           └─ Magpie 网关</span><br><span class="line">                                └─ 上游 CPA provider</span><br></pre></td></tr></table></figure>
+
+<p>关键点只有一句：<strong>WSL 侧监听 <code>127.0.0.1:3425</code> 冒充网关，Windows 侧必须走 IPv6 回环 <code>[::1]</code> 出去。</strong></p>
+<hr>
+<h2 id="为什么必须加一层桥：WSL-里的-127-0-0-1-不是你的-Windows"><a href="#为什么必须加一层桥：WSL-里的-127-0-0-1-不是你的-Windows" class="headerlink" title="为什么必须加一层桥：WSL 里的 127.0.0.1 不是你的 Windows"></a>为什么必须加一层桥：WSL 里的 127.0.0.1 不是你的 Windows</h2><p>Desktop 给远端 CLI 注入的网关地址是<strong>写死的</strong>：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:3425</span><br></pre></td></tr></table></figure>
+
+<p>来源：<code>main.log</code> 的 <code>[custom-3p] inference apiHost=http://127.0.0.1:3425</code>，以及打包 JS 里用 <code>apiHost</code> 拼 <code>ANTHROPIC_BASE_URL</code>。</p>
+<p>而 WSL2 默认 NAT 网络下：</p>
+<ul>
+<li>WSL 里的 <code>127.0.0.1</code> 是 <strong>WSL 自己的回环</strong>，不是 Windows 的；</li>
+<li><code>localhostForwarding</code> 的方向是 <strong>Windows → WSL</strong>，反方向没有转发。</li>
+</ul>
+<p>于是 CLI 连 <code>127.0.0.1:3425</code> 直接 <code>ECONNREFUSED</code>，请求根本到不了 Windows 上的 Magpie——这就是最初界面报 “Check your internet connection, VPN, or proxy”、而 Magpie 日志里一条请求都没有的原因。</p>
+<h3 id="为什么不能直接改成宿主机地址"><a href="#为什么不能直接改成宿主机地址" class="headerlink" title="为什么不能直接改成宿主机地址"></a>为什么不能直接改成宿主机地址</h3><p>把 <code>inferenceGatewayBaseUrl</code> 改成 <code>http://172.20.160.1:3425</code>（WSL 的 Windows 网关地址）会被 Desktop 拒绝：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Invalid custom3p managed config: inferenceGatewayBaseUrl</span><br><span class="line">… must use https (or http on loopback)</span><br></pre></td></tr></table></figure>
+
+<p>即 Desktop 只接受 <strong>回环地址 + HTTP</strong>，或 <strong>任意地址 + HTTPS</strong>。明文 HTTP 打 NAT 地址不合法。</p>
+<h3 id="为什么一定要-IPv6"><a href="#为什么一定要-IPv6" class="headerlink" title="为什么一定要 IPv6"></a>为什么一定要 IPv6</h3><p>最早的补法是在 WSL 里监听 <code>127.0.0.1:3425</code> 再转到 <code>172.20.160.1:3425</code>，结果出现两个问题：</p>
+<ol>
+<li>走 NAT 入口会强制校验网关 key，回环入口不校验，行为不一致；</li>
+<li>改成 Windows 管道转发后出现 <strong>6612 次连接放大</strong>，且永远收不到首字节。</li>
+</ol>
+<p>递归机制（已用独立实验证实：WSL 监听临时端口后，从 Windows 连 <code>127.0.0.1:同端口</code> 能打到 WSL 内的监听器）：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">WSL 127.0.0.1:3425</span><br><span class="line">  → Windows 工作进程</span><br><span class="line">  → Windows 127.0.0.1:3425</span><br><span class="line">  → 被 localhostForwarding 送回 WSL 3425</span><br><span class="line">  → 无限递归</span><br></pre></td></tr></table></figure>
+
+<p>Magpie 实际监听的是 <code>::3425</code>（IPv4&#x2F;IPv6 双栈），而 <code>localhostForwarding</code> 只管 IPv4。所以 Windows 侧改用 <code>[::1]:3425</code> 就能<strong>绕开递归</strong>，且仍然落在回环入口上。</p>
+<hr>
+<h2 id="九个坑，一个一个踩"><a href="#九个坑，一个一个踩" class="headerlink" title="九个坑，一个一个踩"></a>九个坑，一个一个踩</h2><table>
+<thead>
+<tr>
+<th>#</th>
+<th>现象</th>
+<th>根因</th>
+<th>修法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Magpie 收不到任何请求</td>
+<td>WSL2 NAT 下 <code>127.0.0.1</code> 是 WSL 自己的回环</td>
+<td>必须加桥</td>
+</tr>
+<tr>
+<td>2</td>
+<td>改 NAT 地址被拒</td>
+<td>Desktop 只允许 https 或 http-on-loopback</td>
+<td>保留 <code>127.0.0.1</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>数千连接、永不返回</td>
+<td>IPv4 同端口转发 + localhostForwarding 递归</td>
+<td>上游改 <code>[::1]</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>通了但立刻 <code>unrecognized_model</code></td>
+<td>会话里存的模型 ID 是 <code>mythos-magpie-*</code>，网关只提供 <code>cpa/*</code></td>
+<td>会话模型切到 <code>/v1/models</code> 实际返回的 ID</td>
+</tr>
+<tr>
+<td>5</td>
+<td>短消息能过，正常消息失败</td>
+<td>初版桥空闲 10s &#x2F; 总时长 120s，流式推理被掐断</td>
+<td>空闲 300s、单连接 900s</td>
+</tr>
+<tr>
+<td>6</td>
+<td>服务 active、端口在听，但恒定 0 字节</td>
+<td>systemd 加固（<code>NoNewPrivileges</code>&#x2F;<code>ProtectSystem</code>&#x2F;<code>ProtectHome</code>&#x2F;<code>PrivateTmp</code>）阻断 <code>/run/WSL/*_interop</code></td>
+<td>移除这四项加固</td>
+</tr>
+<tr>
+<td>7</td>
+<td>跑一会儿就失败，Magpie 报端口被占用</td>
+<td><code>wslrelay.exe</code> 抢占 Windows 3425 → Magpie 退到 3426 → WSL 无 3426 监听 → <code>errno=10061</code></td>
+<td><code>.wslconfig</code> 设 <code>localhostForwarding=false</code></td>
+</tr>
+<tr>
+<td>8</td>
+<td>间歇 reset、0 字节</td>
+<td>keep-alive 长连接占满 8 个槽位，<code>connections_rejected</code> 飙升</td>
+<td>上限提到 64，按<strong>当前活动连接数</strong>判定</td>
+</tr>
+<tr>
+<td>9</td>
+<td>运行中断流</td>
+<td>上游 CPA 返回 HTTP 200 内嵌错误（见下文”那些看起来像本地故障的报错”）</td>
+<td>非本地问题，重试或换模型</td>
+</tr>
+</tbody></table>
+<p>第 7 层值得单独记住，它会自我延续：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">WSL 桥监听 P</span><br><span class="line">  → localhostForwarding 生成 wslrelay.exe 占用 Windows P</span><br><span class="line">  → Magpie 绑定 P 失败，退到 P+1</span><br><span class="line">  → Desktop 跟随到 P+1</span><br><span class="line">  → WSL 桥也要听 P+1</span><br><span class="line">  → 再被 wslrelay 抢占 ……</span><br></pre></td></tr></table></figure>
+
+<p>所以 <code>localhostForwarding=false</code> 不是可选优化，是<strong>前置条件</strong>。</p>
+<hr>
+<h2 id="最终的配置清单"><a href="#最终的配置清单" class="headerlink" title="最终的配置清单"></a>最终的配置清单</h2><h3 id="1-C-Users-admin-wslconfig"><a href="#1-C-Users-admin-wslconfig" class="headerlink" title="1. C:\Users\admin\.wslconfig"></a>1. <code>C:\Users\admin\.wslconfig</code></h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[wsl2]</span></span><br><span class="line"><span class="attr">localhostForwarding</span>=<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>代价：从 Windows 访问 WSL 内服务不能再直接用 <code>localhost:端口</code>，要改用 WSL 的 IP。</p>
+<h3 id="2-C-Users-admin-config-magpie-settings-json"><a href="#2-C-Users-admin-config-magpie-settings-json" class="headerlink" title="2. C:\Users\admin\.config\magpie\settings.json"></a>2. <code>C:\Users\admin\.config\magpie\settings.json</code></h3><p>与本方案相关的字段（只列非敏感的）：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;port&quot;</span><span class="punctuation">:</span> <span class="number">3425</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;vision&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpa/gpt-5.6-luna&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;pickedModels&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;claude-desktop&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;cpa/deepseek-v4.1-flash&quot;</span><span class="punctuation">,</span> <span class="string">&quot;cpa/gpt-5.6-luna&quot;</span><span class="punctuation">,</span> <span class="string">&quot;cpa/gpt-6.1-sol&quot;</span><span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;modelCompacts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;cpa/*&quot;</span><span class="punctuation">:</span> <span class="number">600000</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;agentsHere&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;claude@wsl:Ubuntu-24.04&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>该文件含凭据字段（如 <code>lanKey</code>），<strong>不要整份外传或截图</strong>。</p>
+<h3 id="3-etc-systemd-system-claude-ipv6-bridge-service"><a href="#3-etc-systemd-system-claude-ipv6-bridge-service" class="headerlink" title="3. /etc/systemd/system/claude-ipv6-bridge.service"></a>3. <code>/etc/systemd/system/claude-ipv6-bridge.service</code></h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=Claude WSL IPv6 loopback bridge to Windows Magpie</span><br><span class="line"><span class="attr">After</span>=local-fs.target network-<span class="literal">on</span>line.target</span><br><span class="line"><span class="attr">Wants</span>=network-<span class="literal">on</span>line.target</span><br><span class="line"></span><br><span class="line"><span class="section">[Service]</span></span><br><span class="line"><span class="attr">Type</span>=simple</span><br><span class="line"><span class="attr">User</span>=ubuntu</span><br><span class="line"><span class="attr">Environment</span>=PYTHONUNBUFFERED=<span class="number">1</span></span><br><span class="line"><span class="attr">Environment</span>=WSL_INTEROP=/run/WSL/<span class="number">1</span>_interop</span><br><span class="line"><span class="attr">Environment</span>=WSL_DISTRO_NAME=Ubuntu-<span class="number">24.04</span></span><br><span class="line"><span class="attr">Environment</span>=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br><span class="line"><span class="attr">ExecStart</span>=/usr/bin/python3 /mnt/d/Claude/SNAP/tools/wsl-windows-pipe-ipv6-service.py</span><br><span class="line"><span class="attr">Restart</span>=always</span><br><span class="line"><span class="attr">RestartSec</span>=<span class="number">5</span></span><br><span class="line"><span class="attr">KillSignal</span>=SIGTERM</span><br><span class="line"><span class="attr">TimeoutStopSec</span>=<span class="number">45</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p><strong>不要</strong>加回 <code>NoNewPrivileges</code> &#x2F; <code>ProtectSystem</code> &#x2F; <code>ProtectHome</code> &#x2F; <code>PrivateTmp</code>——会让 interop 失效，表现为服务正常但请求全是 0 字节。</p>
+<h3 id="4-桥的关键参数"><a href="#4-桥的关键参数" class="headerlink" title="4. 桥的关键参数"></a>4. 桥的关键参数</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">监听：127.0.0.1:&lt;从 Magpie settings.json 读 port，当前 3425&gt;</span><br><span class="line">上游：Windows [::1]:&lt;自动探测 3425/3426/3427/3430&gt;</span><br><span class="line">最大并发：64（按当前活动连接数计，不是累计）</span><br><span class="line">I/O 空闲超时：300 秒</span><br><span class="line">单连接上限：900 秒</span><br><span class="line">单方向上限：16 MiB</span><br><span class="line">重启：Restart=always / RestartSec=5</span><br><span class="line">不记录请求内容和密钥</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-etc-wsl-conf"><a href="#5-etc-wsl-conf" class="headerlink" title="5. /etc/wsl.conf"></a>5. <code>/etc/wsl.conf</code></h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[boot]</span></span><br><span class="line"><span class="attr">systemd</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>没有它，服务根本不会开机启动。</p>
+<hr>
+<h2 id="怎么验证它真的通了"><a href="#怎么验证它真的通了" class="headerlink" title="怎么验证它真的通了"></a>怎么验证它真的通了</h2><p>三层都要单独验，否则分不清是哪一层坏了。</p>
+<p><strong>第一层：Windows 上 Magpie 活着</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano | grep -E <span class="string">&quot;LISTENING&quot;</span> | grep 3425</span><br></pre></td></tr></table></figure>
+
+<p>应看到 PID 同时监听 <code>0.0.0.0:3425</code> 和 <code>[::]:3425</code>，且<strong>没有 <code>wslrelay.exe</code> 占着这个端口</strong>。</p>
+<p><strong>第二层：WSL 侧桥在听</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MSYS_NO_PATHCONV=1 wsl.exe -d Ubuntu-24.04 --user root -- ss -ltn</span><br></pre></td></tr></table></figure>
+
+<p>应有 <code>LISTEN 127.0.0.1:3425</code>。</p>
+<p><strong>第三层：端到端</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MSYS_NO_PATHCONV=1 wsl.exe -d Ubuntu-24.04 -- bash -lc <span class="string">&quot;curl -sS -m 20 -o /dev/null -w &#x27;code=%&#123;http_code&#125; bytes=%&#123;size_download&#125;\n&#x27; http://127.0.0.1:3425/v1/models&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>健康时形如 <code>code=200 bytes=2657</code>。<strong>0 字节 &#x3D; interop 被阻断</strong>（查第 6 层坑），不是网络不通。</p>
+<hr>
+<h2 id="那些看起来像本地故障、其实不是的报错"><a href="#那些看起来像本地故障、其实不是的报错" class="headerlink" title="那些看起来像本地故障、其实不是的报错"></a>那些看起来像本地故障、其实不是的报错</h2><p>这两类错误都出现在 <strong>HTTP 200</strong> 之后，属于上游服务在流里内嵌的错误，改桥、改 Magpie、换密钥都没用。</p>
+<h3 id="1-Complexity-39-lt-level-gt-39-is-not-supported-for-this-image-model"><a href="#1-Complexity-39-lt-level-gt-39-is-not-supported-for-this-image-model" class="headerlink" title="1. Complexity &#39;&lt;level&gt;&#39; is not supported for this image model"></a>1. <code>Complexity &#39;&lt;level&gt;&#39; is not supported for this image model</code></h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2026/11/05 15:27:19 gateway: claude-desktop&#x27;s call to cpa/gpt-5.6-luna on cpa failed: 200 after 21.577s: Complexity &#x27;high&#x27; is not supported for this image model.</span><br><span class="line">2026/11/05 16:08:04 gateway: claude-desktop&#x27;s call to cpa/gpt-6.1-sol  on cpa failed: 200 after 25.597s: Complexity &#x27;medium&#x27; is not supported for this image model.</span><br></pre></td></tr></table></figure>
+
+<p>判定依据：</p>
+<ul>
+<li><code>magpie.exe</code> 里 <code>b&quot;Complexity&quot;</code> 出现次数为 <strong>0</strong>，<code>b&quot;is not supported for this image model&quot;</code> 也为 0 → 不是 Magpie 生成的；</li>
+<li>状态码是 200，说明是上游返回后夹带在正文里的错误；</li>
+<li>本地对 <code>127.0.0.1:3425</code> 逐个试探了 <code>reasoning_effort</code> 低&#x2F;中&#x2F;高、<code>reasoning.effort</code>、<code>metadata.complexity</code>、顶层 <code>complexity</code>、带图&#x2F;不带图、<code>thinking.budget_tokens</code> 各档位，<strong>全部 200 正常</strong>，无法在本地稳定复现。</li>
+</ul>
+<p>推测：上游把某些请求路由到它内部的图像模型通道，而那条通道只接受固定的 complexity 级别。属于 CPA 侧行为。</p>
+<p>处理：重试；或该会话改用未出现过此错误的 <code>cpa/deepseek-v4.1-flash</code>。</p>
+<h3 id="2-CPA-connection-lost-mid-reply-unexpected-EOF"><a href="#2-CPA-connection-lost-mid-reply-unexpected-EOF" class="headerlink" title="2. CPA: connection lost mid-reply (unexpected EOF)"></a>2. <code>CPA: connection lost mid-reply (unexpected EOF)</code></h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2026/11/17 09:29:46 gateway: claude-desktop&#x27;s call to cpa/gpt-6.1-sol on cpa failed: 200 after 22.412s: CPA: connection lost mid-reply (unexpected EOF)</span><br></pre></td></tr></table></figure>
+
+<p>上游长连接被切断。长回答、重推理时更容易出现。本地桥已把超时放宽到 300s&#x2F;900s，所以<strong>不是</strong>我们这侧掐的。</p>
+<hr>
+<h2 id="装好之后怎么维护"><a href="#装好之后怎么维护" class="headerlink" title="装好之后怎么维护"></a>装好之后怎么维护</h2><h3 id="看服务状态"><a href="#看服务状态" class="headerlink" title="看服务状态"></a>看服务状态</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MSYS_NO_PATHCONV=1 wsl.exe -d Ubuntu-24.04 --user root -- systemctl status claude-ipv6-bridge.service</span><br></pre></td></tr></table></figure>
+
+<h3 id="看日志"><a href="#看日志" class="headerlink" title="看日志"></a>看日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MSYS_NO_PATHCONV=1 wsl.exe -d Ubuntu-24.04 --user root -- journalctl -u claude-ipv6-bridge.service -n 50 --no-pager</span><br></pre></td></tr></table></figure>
+
+<p>日志里认这几个标记：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WSL_IPV6_SERVICE_READY    启动成功，已打印监听与上游</span><br><span class="line">WSL_IPV6_SERVICE_STOPPED  退出，附带 accepted / rejected 等计数</span><br><span class="line">BRIDGE_WORKER_START_ERROR interop 起不来，附 errno 与 interop 环境</span><br></pre></td></tr></table></figure>
+
+<h3 id="重启-x2F-停用"><a href="#重启-x2F-停用" class="headerlink" title="重启 &#x2F; 停用"></a>重启 &#x2F; 停用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MSYS_NO_PATHCONV=1 wsl.exe -d Ubuntu-24.04 --user root -- systemctl restart claude-ipv6-bridge.service</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MSYS_NO_PATHCONV=1 wsl.exe -d Ubuntu-24.04 --user root -- systemctl <span class="built_in">disable</span> --now claude-ipv6-bridge.service</span><br></pre></td></tr></table></figure>
+
+<h3 id="切换-WSL-会话模型"><a href="#切换-WSL-会话模型" class="headerlink" title="切换 WSL 会话模型"></a>切换 WSL 会话模型</h3><p>在该会话自己的模型选择器里选，或会话内执行：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/model cpa/gpt-6.1-sol</span><br></pre></td></tr></table></figure>
+
+<p><strong>只能用 <code>/v1/models</code> 实际返回的 ID。</strong> <code>mythos-magpie-*</code> 是旧的本地别名，远端 CLI 2.1.317 会直接拒绝。</p>
+<h3 id="Magpie-换端口后"><a href="#Magpie-换端口后" class="headerlink" title="Magpie 换端口后"></a>Magpie 换端口后</h3><p>桥只在<strong>启动时</strong>读一次 <code>settings.json</code> 的 <code>port</code>。Magpie 换了端口（比如又被抢占），必须重启桥。</p>
+<hr>
+<h2 id="排障速查：症状对原因"><a href="#排障速查：症状对原因" class="headerlink" title="排障速查：症状对原因"></a>排障速查：症状对原因</h2><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>优先检查</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Magpie 完全无请求</td>
+<td>桥是否 active；WSL 内 <code>ss -ltn</code> 有无 <code>127.0.0.1:3425</code></td>
+</tr>
+<tr>
+<td>桥 active、端口在听，但 0 字节</td>
+<td>单元文件是否残留 systemd 加固；<code>/mnt/d/Software/Python/python.exe</code> 是否存在</td>
+</tr>
+<tr>
+<td>出现数千连接</td>
+<td>是否误回退到 IPv4 同端口转发（必须 <code>[::1]</code>）</td>
+</tr>
+<tr>
+<td>Magpie 报端口被占用</td>
+<td>有无 <code>wslrelay.exe</code> 占端口；<code>.wslconfig</code> 的 <code>localhostForwarding</code> 是否被改回 true</td>
+</tr>
+<tr>
+<td>跑一阵后新请求被 reset</td>
+<td>journal 里 <code>connections_rejected</code> 是否增长；上限应为 64</td>
+</tr>
+<tr>
+<td><code>errno=10061</code></td>
+<td>Magpie 实际端口 ≠ 桥的上游端口；看 <code>magpie/settings.json</code> 的 <code>port</code>，重启桥</td>
+</tr>
+<tr>
+<td><code>unrecognized_model</code></td>
+<td>会话模型是否在 <code>/v1/models</code> 列表里</td>
+</tr>
+<tr>
+<td><code>ECONNRESET</code> &#x2F; 0 字节</td>
+<td>桥被超时截断，或 interop 被 sandbox 阻断</td>
+</tr>
+<tr>
+<td>长回答被截断</td>
+<td>I&#x2F;O 空闲超时（现为 300s）或上游 EOF</td>
+</tr>
+<tr>
+<td><code>must use https (or http on loopback)</code></td>
+<td>是否把网关改成了非回环明文 HTTP</td>
+</tr>
+<tr>
+<td><code>Complexity ... image model</code></td>
+<td>上游 CPA 行为，重试或换模型，别改本地配置</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="这套方案仍然脆弱的地方"><a href="#这套方案仍然脆弱的地方" class="headerlink" title="这套方案仍然脆弱的地方"></a>这套方案仍然脆弱的地方</h2><ol>
+<li><strong>未做冷启动全链路验证</strong> —— 没有执行 <code>wsl --shutdown</code> 后的完整冷启测试，开机自启目前只有 <code>systemctl is-enabled</code> 层面的证据。</li>
+<li><strong><code>/etc/wsl.conf</code> 依赖</strong> —— <code>[boot] systemd=true</code> 一旦被改，服务不会启动。</li>
+<li><strong>Windows Python 路径硬编码</strong> —— 依赖 <code>/mnt/d/Software/Python/python.exe</code>。卸载、换盘、升级路径变化都会让桥失效。</li>
+<li><strong>Magpie 必须保留 IPv6 回环监听</strong> —— 当前是 <code>[::]:3425</code> 双栈。若改成只监听 <code>127.0.0.1</code>，<code>[::1]</code> 连不上，整套方案要重新设计。</li>
+<li><strong>模型 ID 会变</strong> —— Magpie 换 provider 或模型后，Desktop 里保存的旧 ID 会再次触发 <code>unrecognized_model</code>。排查先看 <code>/v1/models</code>。</li>
+<li><strong><code>localhostForwarding=false</code> 是全局行为变更</strong> —— 影响所有 Windows→WSL 的 localhost 访问。</li>
+<li><strong>上游 CPA 稳定性不在掌控内</strong> —— <code>Complexity</code>、<code>connection lost mid-reply</code> 都可能随时出现。</li>
+</ol>
+<hr>
+<h2 id="比配置更值得记的七条"><a href="#比配置更值得记的七条" class="headerlink" title="比配置更值得记的七条"></a>比配置更值得记的七条</h2><h3 id="1-不要在应用运行时改它的配置文件"><a href="#1-不要在应用运行时改它的配置文件" class="headerlink" title="1. 不要在应用运行时改它的配置文件"></a>1. 不要在应用运行时改它的配置文件</h3><p>在 Desktop 运行期间直接编辑 <code>claude_desktop_config.json</code> 改会话模型，结果 Desktop 在 1 分钟后自己重写覆盖，期间宿主会话短暂断联。</p>
+<p><strong>规矩</strong>：改 Desktop 配置要么在界面里操作，要么先完全退出 Desktop。</p>
+<h3 id="2-不要凭一个-401-就断定”密钥错了”"><a href="#2-不要凭一个-401-就断定”密钥错了”" class="headerlink" title="2. 不要凭一个 401 就断定”密钥错了”"></a>2. 不要凭一个 401 就断定”密钥错了”</h3><p>曾因临时转发拿到 401，倾向判断”Desktop 保存的密钥有问题”。后来对照证明两个入口策略不同：</p>
+<table>
+<thead>
+<tr>
+<th>入口</th>
+<th>不带鉴权</th>
+<th>带无效 Bearer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>127.0.0.1:3425</code>（回环）</td>
+<td>200</td>
+<td>200</td>
+</tr>
+<tr>
+<td><code>172.20.160.1:3425</code>（NAT）</td>
+<td>401</td>
+<td>401</td>
+</tr>
+</tbody></table>
+<p>那个 401 是<strong>入口策略差异</strong>，与密钥无关。用户只有一把密钥且一直在用，从未要求更换。</p>
+<h3 id="3-0-字节响应优先怀疑-interop，不是网络"><a href="#3-0-字节响应优先怀疑-interop，不是网络" class="headerlink" title="3. 0 字节响应优先怀疑 interop，不是网络"></a>3. 0 字节响应优先怀疑 interop，不是网络</h3><p>服务 <code>active</code>、端口在听、却每个请求 0 字节 —— 症状很像网络，实际是 systemd sandbox 挡住了 <code>/run/WSL/*_interop</code>。看到 0 字节先查单元文件加固项。</p>
+<h3 id="4-时长的-errno-是-None"><a href="#4-时长的-errno-是-None" class="headerlink" title="4. 时长的 errno 是 None"></a>4. 时长的 errno 是 None</h3><p><code>PIPE_DOWNLOAD_ERROR errno=None</code> 意味着不是真实 socket 错误，而是<strong>本地超时对象</strong>。看到 <code>errno=None</code> 就往超时方向查，别去查网络栈。</p>
+<h3 id="5-每层都要能单独证伪"><a href="#5-每层都要能单独证伪" class="headerlink" title="5. 每层都要能单独证伪"></a>5. 每层都要能单独证伪</h3><p>最终这套方案有 9 层坑，能走出来靠的是每层都做<strong>独立对照实验</strong>（例如用临时端口证明 localhostForwarding 方向、用无敏感标记证明子进程管道可用），而不是靠猜。中途有一次我把”同端口递归”写成了”已排除”，后来靠受控实验才发现是错的，已在报告里更正。</p>
+<h3 id="6-分清”本地问题”和”上游问题”"><a href="#6-分清”本地问题”和”上游问题”" class="headerlink" title="6. 分清”本地问题”和”上游问题”"></a>6. 分清”本地问题”和”上游问题”</h3><p><code>Complexity</code> 报错排查花了不少时间，最后靠<strong>在二进制里搜字符串为 0</strong> 才确认它根本不在 Magpie 里。以后再遇到奇怪报错，第一步先搜二进制、看它到底是谁产生的。</p>
+<h3 id="7-代理工具（WSL-命令）的路径会被-MSYS-改写"><a href="#7-代理工具（WSL-命令）的路径会被-MSYS-改写" class="headerlink" title="7. 代理工具（WSL 命令）的路径会被 MSYS 改写"></a>7. 代理工具（WSL 命令）的路径会被 MSYS 改写</h3><p>Git Bash 下 <code>/mnt/d/...</code> 会被改写成 <code>D:/Software/Git/mnt/...</code>。所有跨 <code>wsl.exe</code> 传路径的命令前加 <code>MSYS_NO_PATHCONV=1</code>。</p>
+<hr>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>如果只用一句话概括这次故障：</p>
+<blockquote>
+<p>Desktop 把 <code>http://127.0.0.1:3425</code> 写死进 WSL 的 CLI，而 WSL2 NAT 下这个地址只指向 WSL 自己。</p>
+</blockquote>
+<p>剩下的八个坑，都是打通之后才逐个浮出水面的：模型 ID、超时、systemd 沙箱、端口抢占、连接上限。它们的共同点是——<strong>上一层修好了，下一层才看得见</strong>。</p>
+<p>这也解释了为什么”直接问怎么解决”很难得到答案：这类问题不是单一 bug，而是一条依赖链。每修一层，报错就换一张脸。</p>
+<p>真正让排查效率提上来的，只有两件事：</p>
+<ol>
+<li><strong>每层都做能独立证伪的对照实验</strong>。比如用临时端口证明 <code>localhostForwarding</code> 的方向，而不是靠读文档推断。</li>
+<li><strong>先确认报错是谁产生的</strong>。<code>Complexity</code> 那个错查了很久，最后靠搜二进制字符串为 0 才确认它压根不在本地——早做这一步能省掉大半天。</li>
+</ol>
+<p>如果你也在做类似的事（Desktop 远程会话 + 本地网关 + WSL），希望这九层能帮你少走几层。</p>
+
+                </div>
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                127.0.0.1 到底是谁的？Claude Desktop 连 WSL2 本地网关的九层排障记
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2026/11/17/magpie-wsl-experience/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">WxylkxyZz</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2026-11-17 14:28</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/WSL/">WSL</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/Claude-Desktop/">Claude Desktop</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/Magpie/">Magpie</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2023/12/30/Xpath/"
+                                   title="Xpath"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Xpath</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <!-- use hexo-blog-encrypt -->
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E6%83%85%E7%9A%84%E8%B5%B7%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">事情的起点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E8%B7%91%E8%B5%B7%E6%9D%A5%E7%9A%84%E9%93%BE%E8%B7%AF%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7"><span class="nav-number">2.</span> <span class="nav-text">最终跑起来的链路长什么样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E5%8A%A0%E4%B8%80%E5%B1%82%E6%A1%A5%EF%BC%9AWSL-%E9%87%8C%E7%9A%84-127-0-0-1-%E4%B8%8D%E6%98%AF%E4%BD%A0%E7%9A%84-Windows"><span class="nav-number">3.</span> <span class="nav-text">为什么必须加一层桥：WSL 里的 127.0.0.1 不是你的 Windows</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%9B%B4%E6%8E%A5%E6%94%B9%E6%88%90%E5%AE%BF%E4%B8%BB%E6%9C%BA%E5%9C%B0%E5%9D%80"><span class="nav-number">3.1.</span> <span class="nav-text">为什么不能直接改成宿主机地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%80%E5%AE%9A%E8%A6%81-IPv6"><span class="nav-number">3.2.</span> <span class="nav-text">为什么一定要 IPv6</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E4%B8%AA%E5%9D%91%EF%BC%8C%E4%B8%80%E4%B8%AA%E4%B8%80%E4%B8%AA%E8%B8%A9"><span class="nav-number">4.</span> <span class="nav-text">九个坑，一个一个踩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E7%9A%84%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95"><span class="nav-number">5.</span> <span class="nav-text">最终的配置清单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-C-Users-admin-wslconfig"><span class="nav-number">5.1.</span> <span class="nav-text">1. C:\Users\admin\.wslconfig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-C-Users-admin-config-magpie-settings-json"><span class="nav-number">5.2.</span> <span class="nav-text">2. C:\Users\admin\.config\magpie\settings.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-etc-systemd-system-claude-ipv6-bridge-service"><span class="nav-number">5.3.</span> <span class="nav-text">3. &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;claude-ipv6-bridge.service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%A1%A5%E7%9A%84%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0"><span class="nav-number">5.4.</span> <span class="nav-text">4. 桥的关键参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-etc-wsl-conf"><span class="nav-number">5.5.</span> <span class="nav-text">5. &#x2F;etc&#x2F;wsl.conf</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E9%AA%8C%E8%AF%81%E5%AE%83%E7%9C%9F%E7%9A%84%E9%80%9A%E4%BA%86"><span class="nav-number">6.</span> <span class="nav-text">怎么验证它真的通了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%A3%E4%BA%9B%E7%9C%8B%E8%B5%B7%E6%9D%A5%E5%83%8F%E6%9C%AC%E5%9C%B0%E6%95%85%E9%9A%9C%E3%80%81%E5%85%B6%E5%AE%9E%E4%B8%8D%E6%98%AF%E7%9A%84%E6%8A%A5%E9%94%99"><span class="nav-number">7.</span> <span class="nav-text">那些看起来像本地故障、其实不是的报错</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Complexity-39-lt-level-gt-39-is-not-supported-for-this-image-model"><span class="nav-number">7.1.</span> <span class="nav-text">1. Complexity &#39;&lt;level&gt;&#39; is not supported for this image model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-CPA-connection-lost-mid-reply-unexpected-EOF"><span class="nav-number">7.2.</span> <span class="nav-text">2. CPA: connection lost mid-reply (unexpected EOF)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A3%85%E5%A5%BD%E4%B9%8B%E5%90%8E%E6%80%8E%E4%B9%88%E7%BB%B4%E6%8A%A4"><span class="nav-number">8.</span> <span class="nav-text">装好之后怎么维护</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%8B%E6%9C%8D%E5%8A%A1%E7%8A%B6%E6%80%81"><span class="nav-number">8.1.</span> <span class="nav-text">看服务状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%8B%E6%97%A5%E5%BF%97"><span class="nav-number">8.2.</span> <span class="nav-text">看日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%90%AF-x2F-%E5%81%9C%E7%94%A8"><span class="nav-number">8.3.</span> <span class="nav-text">重启 &#x2F; 停用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E6%8D%A2-WSL-%E4%BC%9A%E8%AF%9D%E6%A8%A1%E5%9E%8B"><span class="nav-number">8.4.</span> <span class="nav-text">切换 WSL 会话模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Magpie-%E6%8D%A2%E7%AB%AF%E5%8F%A3%E5%90%8E"><span class="nav-number">8.5.</span> <span class="nav-text">Magpie 换端口后</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E9%9A%9C%E9%80%9F%E6%9F%A5%EF%BC%9A%E7%97%87%E7%8A%B6%E5%AF%B9%E5%8E%9F%E5%9B%A0"><span class="nav-number">9.</span> <span class="nav-text">排障速查：症状对原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E5%A5%97%E6%96%B9%E6%A1%88%E4%BB%8D%E7%84%B6%E8%84%86%E5%BC%B1%E7%9A%84%E5%9C%B0%E6%96%B9"><span class="nav-number">10.</span> <span class="nav-text">这套方案仍然脆弱的地方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E9%85%8D%E7%BD%AE%E6%9B%B4%E5%80%BC%E5%BE%97%E8%AE%B0%E7%9A%84%E4%B8%83%E6%9D%A1"><span class="nav-number">11.</span> <span class="nav-text">比配置更值得记的七条</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%8D%E8%A6%81%E5%9C%A8%E5%BA%94%E7%94%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E6%94%B9%E5%AE%83%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">11.1.</span> <span class="nav-text">1. 不要在应用运行时改它的配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%8D%E8%A6%81%E5%87%AD%E4%B8%80%E4%B8%AA-401-%E5%B0%B1%E6%96%AD%E5%AE%9A%E2%80%9D%E5%AF%86%E9%92%A5%E9%94%99%E4%BA%86%E2%80%9D"><span class="nav-number">11.2.</span> <span class="nav-text">2. 不要凭一个 401 就断定”密钥错了”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-0-%E5%AD%97%E8%8A%82%E5%93%8D%E5%BA%94%E4%BC%98%E5%85%88%E6%80%80%E7%96%91-interop%EF%BC%8C%E4%B8%8D%E6%98%AF%E7%BD%91%E7%BB%9C"><span class="nav-number">11.3.</span> <span class="nav-text">3. 0 字节响应优先怀疑 interop，不是网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%97%B6%E9%95%BF%E7%9A%84-errno-%E6%98%AF-None"><span class="nav-number">11.4.</span> <span class="nav-text">4. 时长的 errno 是 None</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%AF%8F%E5%B1%82%E9%83%BD%E8%A6%81%E8%83%BD%E5%8D%95%E7%8B%AC%E8%AF%81%E4%BC%AA"><span class="nav-number">11.5.</span> <span class="nav-text">5. 每层都要能单独证伪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%88%86%E6%B8%85%E2%80%9D%E6%9C%AC%E5%9C%B0%E9%97%AE%E9%A2%98%E2%80%9D%E5%92%8C%E2%80%9D%E4%B8%8A%E6%B8%B8%E9%97%AE%E9%A2%98%E2%80%9D"><span class="nav-number">11.6.</span> <span class="nav-text">6. 分清”本地问题”和”上游问题”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7%EF%BC%88WSL-%E5%91%BD%E4%BB%A4%EF%BC%89%E7%9A%84%E8%B7%AF%E5%BE%84%E4%BC%9A%E8%A2%AB-MSYS-%E6%94%B9%E5%86%99"><span class="nav-number">11.7.</span> <span class="nav-text">7. 代理工具（WSL 命令）的路径会被 MSYS 改写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">12.</span> <span class="nav-text">写在最后</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+        &copy;&nbsp;<span>2020</span>&nbsp;-&nbsp;2026
+        
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">WxylkxyZz</a>
+        
+    </div>
+
+    <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+        
+        <div class="deploy-info info-item">
+            
+                <a target="_blank" rel="nofollow" href="https://github.com/WxylkxyZz">
+            
+            本站由 <span class="tooltip" data-tooltip-content="GitHub Pages"><img src="/images/brands/github.png"></span> 提供部署服务
+            
+                </a>
+            
+        </div>
+    
+
+    
+        <div class="count-info info-item">
+            
+                <span class="count-item border-box word">
+                    <span class="item-type border-box">总字数</span>
+                    <span class="item-value border-box word">46.9k</span>
+                </span>
+            
+
+            
+                <span class="count-item border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-item border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    
+
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-toggle-theme-mode flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <!-- use hexo-blog-encrypt -->
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E6%83%85%E7%9A%84%E8%B5%B7%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">事情的起点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E8%B7%91%E8%B5%B7%E6%9D%A5%E7%9A%84%E9%93%BE%E8%B7%AF%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7"><span class="nav-number">2.</span> <span class="nav-text">最终跑起来的链路长什么样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E5%8A%A0%E4%B8%80%E5%B1%82%E6%A1%A5%EF%BC%9AWSL-%E9%87%8C%E7%9A%84-127-0-0-1-%E4%B8%8D%E6%98%AF%E4%BD%A0%E7%9A%84-Windows"><span class="nav-number">3.</span> <span class="nav-text">为什么必须加一层桥：WSL 里的 127.0.0.1 不是你的 Windows</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%9B%B4%E6%8E%A5%E6%94%B9%E6%88%90%E5%AE%BF%E4%B8%BB%E6%9C%BA%E5%9C%B0%E5%9D%80"><span class="nav-number">3.1.</span> <span class="nav-text">为什么不能直接改成宿主机地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%80%E5%AE%9A%E8%A6%81-IPv6"><span class="nav-number">3.2.</span> <span class="nav-text">为什么一定要 IPv6</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E4%B8%AA%E5%9D%91%EF%BC%8C%E4%B8%80%E4%B8%AA%E4%B8%80%E4%B8%AA%E8%B8%A9"><span class="nav-number">4.</span> <span class="nav-text">九个坑，一个一个踩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E7%9A%84%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95"><span class="nav-number">5.</span> <span class="nav-text">最终的配置清单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-C-Users-admin-wslconfig"><span class="nav-number">5.1.</span> <span class="nav-text">1. C:\Users\admin\.wslconfig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-C-Users-admin-config-magpie-settings-json"><span class="nav-number">5.2.</span> <span class="nav-text">2. C:\Users\admin\.config\magpie\settings.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-etc-systemd-system-claude-ipv6-bridge-service"><span class="nav-number">5.3.</span> <span class="nav-text">3. &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;claude-ipv6-bridge.service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%A1%A5%E7%9A%84%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0"><span class="nav-number">5.4.</span> <span class="nav-text">4. 桥的关键参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-etc-wsl-conf"><span class="nav-number">5.5.</span> <span class="nav-text">5. &#x2F;etc&#x2F;wsl.conf</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E9%AA%8C%E8%AF%81%E5%AE%83%E7%9C%9F%E7%9A%84%E9%80%9A%E4%BA%86"><span class="nav-number">6.</span> <span class="nav-text">怎么验证它真的通了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%A3%E4%BA%9B%E7%9C%8B%E8%B5%B7%E6%9D%A5%E5%83%8F%E6%9C%AC%E5%9C%B0%E6%95%85%E9%9A%9C%E3%80%81%E5%85%B6%E5%AE%9E%E4%B8%8D%E6%98%AF%E7%9A%84%E6%8A%A5%E9%94%99"><span class="nav-number">7.</span> <span class="nav-text">那些看起来像本地故障、其实不是的报错</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Complexity-39-lt-level-gt-39-is-not-supported-for-this-image-model"><span class="nav-number">7.1.</span> <span class="nav-text">1. Complexity &#39;&lt;level&gt;&#39; is not supported for this image model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-CPA-connection-lost-mid-reply-unexpected-EOF"><span class="nav-number">7.2.</span> <span class="nav-text">2. CPA: connection lost mid-reply (unexpected EOF)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A3%85%E5%A5%BD%E4%B9%8B%E5%90%8E%E6%80%8E%E4%B9%88%E7%BB%B4%E6%8A%A4"><span class="nav-number">8.</span> <span class="nav-text">装好之后怎么维护</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%8B%E6%9C%8D%E5%8A%A1%E7%8A%B6%E6%80%81"><span class="nav-number">8.1.</span> <span class="nav-text">看服务状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%8B%E6%97%A5%E5%BF%97"><span class="nav-number">8.2.</span> <span class="nav-text">看日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%90%AF-x2F-%E5%81%9C%E7%94%A8"><span class="nav-number">8.3.</span> <span class="nav-text">重启 &#x2F; 停用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E6%8D%A2-WSL-%E4%BC%9A%E8%AF%9D%E6%A8%A1%E5%9E%8B"><span class="nav-number">8.4.</span> <span class="nav-text">切换 WSL 会话模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Magpie-%E6%8D%A2%E7%AB%AF%E5%8F%A3%E5%90%8E"><span class="nav-number">8.5.</span> <span class="nav-text">Magpie 换端口后</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E9%9A%9C%E9%80%9F%E6%9F%A5%EF%BC%9A%E7%97%87%E7%8A%B6%E5%AF%B9%E5%8E%9F%E5%9B%A0"><span class="nav-number">9.</span> <span class="nav-text">排障速查：症状对原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E5%A5%97%E6%96%B9%E6%A1%88%E4%BB%8D%E7%84%B6%E8%84%86%E5%BC%B1%E7%9A%84%E5%9C%B0%E6%96%B9"><span class="nav-number">10.</span> <span class="nav-text">这套方案仍然脆弱的地方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E9%85%8D%E7%BD%AE%E6%9B%B4%E5%80%BC%E5%BE%97%E8%AE%B0%E7%9A%84%E4%B8%83%E6%9D%A1"><span class="nav-number">11.</span> <span class="nav-text">比配置更值得记的七条</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%8D%E8%A6%81%E5%9C%A8%E5%BA%94%E7%94%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E6%94%B9%E5%AE%83%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">11.1.</span> <span class="nav-text">1. 不要在应用运行时改它的配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%8D%E8%A6%81%E5%87%AD%E4%B8%80%E4%B8%AA-401-%E5%B0%B1%E6%96%AD%E5%AE%9A%E2%80%9D%E5%AF%86%E9%92%A5%E9%94%99%E4%BA%86%E2%80%9D"><span class="nav-number">11.2.</span> <span class="nav-text">2. 不要凭一个 401 就断定”密钥错了”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-0-%E5%AD%97%E8%8A%82%E5%93%8D%E5%BA%94%E4%BC%98%E5%85%88%E6%80%80%E7%96%91-interop%EF%BC%8C%E4%B8%8D%E6%98%AF%E7%BD%91%E7%BB%9C"><span class="nav-number">11.3.</span> <span class="nav-text">3. 0 字节响应优先怀疑 interop，不是网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%97%B6%E9%95%BF%E7%9A%84-errno-%E6%98%AF-None"><span class="nav-number">11.4.</span> <span class="nav-text">4. 时长的 errno 是 None</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%AF%8F%E5%B1%82%E9%83%BD%E8%A6%81%E8%83%BD%E5%8D%95%E7%8B%AC%E8%AF%81%E4%BC%AA"><span class="nav-number">11.5.</span> <span class="nav-text">5. 每层都要能单独证伪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%88%86%E6%B8%85%E2%80%9D%E6%9C%AC%E5%9C%B0%E9%97%AE%E9%A2%98%E2%80%9D%E5%92%8C%E2%80%9D%E4%B8%8A%E6%B8%B8%E9%97%AE%E9%A2%98%E2%80%9D"><span class="nav-number">11.6.</span> <span class="nav-text">6. 分清”本地问题”和”上游问题”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7%EF%BC%88WSL-%E5%91%BD%E4%BB%A4%EF%BC%89%E7%9A%84%E8%B7%AF%E5%BE%84%E4%BC%9A%E8%A2%AB-MSYS-%E6%94%B9%E5%86%99"><span class="nav-number">11.7.</span> <span class="nav-text">7. 代理工具（WSL 命令）的路径会被 MSYS 改写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">12.</span> <span class="nav-text">写在最后</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/libs/anime.min.js"></script>
+
+<!-- local-search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/lazyload.js"></script>
+
+
+<div class="pjax">
+    
+        <!-- post-helper -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/post/share.js"></script>
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+    
+        
+    
+        
+            
+<script class="custom-inject-js" src="/js/custom-1.js" data-pjax></script>
+
+        
+    
+
+</body>
+</html>
