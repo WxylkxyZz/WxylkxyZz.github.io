@@ -12,10 +12,20 @@ npx hexo clean && npx hexo generate   # 生成到 public/
 npx hexo server      # 本地预览 http://localhost:4000
 ```
 
-发布（暂未配置自动部署，需要时再配）：
-- 生成后的 `public/` 就是要发布到 `WxylkxyZz/WxylkxyZz.github.io` 仓库 `master` 分支的内容；
-- 可用 `hexo-deployer-git`（`_config.yml` 里配 `deploy`）或直接把 `public/` 推送到该仓库。
-- 注意：不要把本源码目录本身推到 `WxylkxyZz.github.io` 仓库（那是纯静态站仓库）。
+## 发布（已跑通，2026-11-17 首发验证）
+
+发布流程（Muse 代跑，token 经 GitHub API，不用 git 命令行）：
+
+1. 新文章写进 `source/_posts/`（front-matter 格式见已有文章；标题里的 `#` 一级标题不要重复写进正文）
+2. `npx hexo clean && npx hexo generate`（clean 不可省，否则旧日期文件残留）
+3. `python3 ~/workspace/custom-connectors/custom.github/bin/update_branch.py hexo ~/workspace/blog/hexo-source "<提交说明>" --exclude-dir node_modules --exclude-dir public --exclude-dir .git --exclude-file db.json`（更新源码分支）
+4. `python3 ~/workspace/custom-connectors/custom.github/bin/update_branch.py master ~/workspace/blog/hexo-source/public "<提交说明>"`（部署到线上站）
+5. 上线后 curl 检查新文章页和首页（GitHub Pages 部署约需 1 分钟）
+
+注意事项：
+- `_config.yml` 里 `timezone: Asia/Shanghai` 不可改回空：空时 Hexo 会把文章日期按 UTC 解析再按本地时间渲染，晚上的文章 URL 会往后错一天（2023/12/30 变成 2023/12/31），老链接全断。
+- `source/README.md` 是仓库根 README（"keep throbbing forever"），经 `skip_render` 原样复制到 `public/`，部署时保留，勿删。
+- 不要把本源码目录本身推到 `WxylkxyZz.github.io` 仓库（那是纯静态站仓库）；源码在 `hexo` 分支，线上站在 `master` 分支。
 
 ## 版本（与原站一致，不升级）
 
@@ -24,7 +34,7 @@ npx hexo server      # 本地预览 http://localhost:4000
   hexo-wordcount 6.0.1、hexo-filter-mathjax 0.11.1
 - Node v24.22.1 / npm 10.9.4（本机环境）
 
-## 已恢复的文章（13 篇，全部在 source/_posts/）
+## 已恢复的文章（13 篇）+ 新发表（1 篇，共 14 篇，均在 source/_posts/）
 
 | 文章 | 日期 | 分类 | 标签 |
 |---|---|---|---|
@@ -41,6 +51,7 @@ npx hexo server      # 本地预览 http://localhost:4000
 | Requests | 2023-12-30 | Python | requests |
 | Trap | 2023-12-30 | Python | Python |
 | Xpath | 2023-12-30 | Python | Xpath |
+| 127.0.0.1 到底是谁的？Claude Desktop 连 WSL2 本地网关的九层排障记 | 2026-11-17 | 随笔 | WSL、Claude Desktop、Magpie |
 
 另有 About 页、Links 页（友链）、自定义 css/js（`source/css/custom-1.css`、
 `source/js/custom-1.js`，从部署文件原样恢复）。
