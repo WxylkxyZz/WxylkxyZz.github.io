@@ -23,6 +23,7 @@ npx hexo server      # 本地预览 http://localhost:4000
 5. 上线后 curl 检查新文章页和首页（GitHub Pages 部署约需 1 分钟）
 
 注意事项：
+- 自定义域名：`source/CNAME`（内容 `throb.wiki`）让 GitHub Pages 把 throb.wiki 指向本站；2026-11-17 起主域名 throb.wiki 的 @ 记录改为 GitHub Pages 的 4 条 A 记录（仅 DNS，不走 Cloudflare 代理，否则 GitHub 无法验证域名并发 HTTPS 证书）。`_config.yml` 里的 `url` 仍为 `https://wxylkxyzz.github.io`（未改，页面 canonical 仍指向旧地址；如需彻底改以 throb.wiki 为准再另行修改）。
 - `_config.yml` 里 `timezone: Asia/Shanghai` 不可改回空：空时 Hexo 会把文章日期按 UTC 解析再按本地时间渲染，晚上的文章 URL 会往后错一天（2023/12/30 变成 2023/12/31），老链接全断。
 - `source/README.md` 是仓库根 README（"keep throbbing forever"），经 `skip_render` 原样复制到 `public/`，部署时保留，勿删。
 - 不要把本源码目录本身推到 `WxylkxyZz.github.io` 仓库（那是纯静态站仓库）；源码在 `hexo` 分支，线上站在 `master` 分支。
