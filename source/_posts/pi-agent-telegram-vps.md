@@ -28,11 +28,11 @@ keywords:
 - 写 shell 脚本、改配置文件（需要精准的 diff / 局部替换，而不是"给我一段代码自己贴"）；
 - 7×24 小时在线，手机上随时能喊。
 
+<!-- more -->
+
 第一反应是 Hermes Agent（Nous Research 出品）。它的自我进化闭环确实漂亮，但技术栈太重：捆绑了完整的 Python 运行时、多层记忆与向量检索、Gateway 网关。空载常驻就要 300~500MB，一开长上下文或并发就冲上 800MB+。而 Debian + SSH + systemd 本身已经吃掉 150~250MB，**结果就是被内核 OOM Killer 直接干掉**。
 
 结论：1h1g 上需要的是编译型的轻量 Agent 运行时，而不是重型 Python 框架。
-
-<!-- more -->
 
 ## 选型对比
 
