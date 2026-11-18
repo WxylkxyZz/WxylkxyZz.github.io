@@ -563,6 +563,94 @@ mjx-container[display="true"] + br {
                 <div class="home-post-item-bottom border-box">
                     
                     <h3 class="home-post-title border-box">
+                        <a href="/2026/11/10/pi-agent-telegram-vps/">
+                            1h1g 小机上跑一个常驻 Telegram 的 AI 运维 Agent：Pi Coding Agent 实战
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            <h2 id="背景与需求"><a href="#背景与需求" class="headerlink" title="背景与需求"></a>背景与需求</h2><p>我有一台 <strong>1 核 1G 内存</strong>的 VPS，想在上面跑一个能常驻、能通过 Telegram 随时下指令的 AI 助手，主要用途是：</p>
+<ul>
+<li>查状态、看日志、启停服务这类日常运维；</li>
+<li>写 shell 脚本、改配置文件（需要精准的 diff &#x2F; 局部替换，而不是”给我一段代码自己贴”）；</li>
+<li>7×24 小时在线，手机上随时能喊。</li>
+</ul>
+<p>第一反应是 Hermes Agent（Nous Research 出品）。它的自我进化闭环确实漂亮，但技术栈太重：捆绑了完整的 Python 运行时、多层记忆与向量检索、Gateway 网关。空载常驻就要 300<del>500MB，一开长上下文或并发就冲上 800MB+。而 Debian + SSH + systemd 本身已经吃掉 150</del>250MB，<strong>结果就是被内核 OOM Killer 直接干掉</strong>。</p>
+<p>结论：1h1g 上需要的是编译型的轻量 Agent 运行时，而不是重型 Python 框架。</p>
+                        
+                    </div>
+
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-hourglass-half"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Wed Nov 18 2026 10:00:00 GMT+0800"
+                >2026-11-18 10:00:00</span>
+            </span>
+        
+
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E8%BF%90%E7%BB%B4%E5%AE%9E%E8%B7%B5/">运维实践</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/VPS/">VPS</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/AI-Agent/">AI Agent</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Pi/">Pi</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Telegram/">Telegram</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/systemd/">systemd</a></li>
+                        
+                    
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+        <a class="home-read-more" href="/2026/11/10/pi-agent-telegram-vps/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-post-item">
+
+                
+
+                <div class="home-post-item-bottom border-box">
+                    
+                    <h3 class="home-post-title border-box">
                         <a href="/2023/12/30/Xpath/">
                             Xpath
                         </a>
@@ -1040,77 +1128,6 @@ mjx-container[display="true"] + br {
                 </div>
             </li>
         
-            <li class="home-post-item">
-
-                
-
-                <div class="home-post-item-bottom border-box">
-                    
-                    <h3 class="home-post-title border-box">
-                        <a href="/2023/04/27/Encrypt-and-Decode/">
-                            Encrypt and Decode
-                        </a>
-                    </h3>
-
-                    <div class="home-post-content keep-markdown-body">
-                        
-                            1. Base64加密&#x2F;解密Base64是一种常用的编码方式，通常用于将二进制数据转换为文本格式，从而可以在网络上或其他不支持二进制传输的环境中传输数据。Base64编码方法涉及到将原始二进制数据分割成固定的小块，每个小块都以6bit的形式...
-                        
-                    </div>
-
-                    
-
-<div class="post-meta-info-container border-box home">
-    <div class="post-meta-info border-box">
-        
-            <span class="meta-info-item border-box">
-                <i class="icon fa-solid fa-hourglass-half"></i>&nbsp;<span class="home-post-history"
-                                                                                data-updated="Thu Apr 27 2023 09:55:55 GMT+0800"
-                >2023-04-27 09:55:55</span>
-            </span>
-        
-
-        
-
-        
-            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
-                <ul class="post-category-ul">
-                    
-                            <li class="category-item"><a href="/categories/%E5%BF%83%E8%A1%80%E6%9D%A5%E6%BD%AE/">心血来潮</a></li>
-                        
-                    
-                </ul>
-            </span>
-        
-
-        
-            <span class="post-tag meta-info-item border-box">
-                <ul class="post-tag-ul">
-                    
-                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Python/">Python</a></li>
-                        
-                    
-                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/">加密解密</a></li>
-                        
-                    
-                </ul>
-            </span>
-        
-
-        
-        
-        
-        
-    </div>
-
-    
-        <a class="home-read-more" href="/2023/04/27/Encrypt-and-Decode/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
-    
-</div>
-
-                </div>
-            </li>
-        
     </ul>
     
     <div class="paginator border-box flex-center">
@@ -1180,7 +1197,7 @@ mjx-container[display="true"] + br {
             
                 <span class="count-item border-box word">
                     <span class="item-type border-box">总字数</span>
-                    <span class="item-value border-box word">46.9k</span>
+                    <span class="item-value border-box word">50k</span>
                 </span>
             
 
