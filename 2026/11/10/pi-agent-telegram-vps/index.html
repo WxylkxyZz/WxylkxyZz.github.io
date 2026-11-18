@@ -408,10 +408,10 @@ mjx-container[display="true"] + br {
 <li>写 shell 脚本、改配置文件（需要精准的 diff &#x2F; 局部替换，而不是”给我一段代码自己贴”）；</li>
 <li>7×24 小时在线，手机上随时能喊。</li>
 </ul>
-<p>第一反应是 Hermes Agent（Nous Research 出品）。它的自我进化闭环确实漂亮，但技术栈太重：捆绑了完整的 Python 运行时、多层记忆与向量检索、Gateway 网关。空载常驻就要 300<del>500MB，一开长上下文或并发就冲上 800MB+。而 Debian + SSH + systemd 本身已经吃掉 150</del>250MB，<strong>结果就是被内核 OOM Killer 直接干掉</strong>。</p>
-<p>结论：1h1g 上需要的是编译型的轻量 Agent 运行时，而不是重型 Python 框架。</p>
 <span id="more"></span>
 
+<p>第一反应是 Hermes Agent（Nous Research 出品）。它的自我进化闭环确实漂亮，但技术栈太重：捆绑了完整的 Python 运行时、多层记忆与向量检索、Gateway 网关。空载常驻就要 300<del>500MB，一开长上下文或并发就冲上 800MB+。而 Debian + SSH + systemd 本身已经吃掉 150</del>250MB，<strong>结果就是被内核 OOM Killer 直接干掉</strong>。</p>
+<p>结论：1h1g 上需要的是编译型的轻量 Agent 运行时，而不是重型 Python 框架。</p>
 <h2 id="选型对比"><a href="#选型对比" class="headerlink" title="选型对比"></a>选型对比</h2><p>调研了四个方向，量级参考如下（内存数据来源为社区资料 + 本机实测，不同版本会有差异）：</p>
 <table>
 <thead>
