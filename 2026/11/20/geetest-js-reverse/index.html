@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="WxylkxyZz">
+    
+    <title>
+        
+            极验js逆向 |
+        
+        Keep Throb
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="https://cdn.statically.io/gh/CoisiniZz/images@main/flows/image.2yni2qpf428.webp">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/font/css/brands.min.css">
+    
+        
+            
+        
+            
+                
+<link rel="stylesheet" href="/css/custom-1.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"wxylkxyzz.github.io","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#99CC66","title":"Keep Throb","author":"WxylkxyZz","avatar":"https://cdn.statically.io/gh/CoisiniZz/images@main/flows/head.2rn5pc5z7u20.webp","logo":"https://cdn.statically.io/gh/CoisiniZz/images@main/flows/image.2yni2qpf428.webp","favicon":"https://cdn.statically.io/gh/CoisiniZz/images@main/flows/image.2yni2qpf428.webp"},"menu":{"home":"/ || fa-solid fa-house","archives":"/archives || fa-solid fa-box-archive","about":"/about || fa-solid fa-people-pulling"},"first_screen":{"enable":true,"background_img":"https://cdn.statically.io/gh/CoisiniZz/images@main/flows/bg.2qj30lgpdqo0.svg","background_img_dark":"https://cdn.statically.io/gh/CoisiniZz/images@main/flows/bg.2qj30lgpdqo0.svg","description":"一片树林里分出两条路 || 而我选择了人迹更少的一条，从此决定了我一生的道路","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/WxylkxyZz","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":"VelproMe@gmail.com","telegram":"https://t.me/VelproMe"}},"scroll":{"progress_bar":true,"percent":true,"hide_header":false},"home":{"announcement":"却顾所来径 苍苍横翠微","category":true,"tag":true,"post_datetime":"updated || fa-solid fa-hourglass-half"},"post":{"author_badge":{"enable":true,"level_badge":false,"custom_badge":["One","Two","Three","菜鸡"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null},"created_datetime_icon":"fa-solid fa-pen-to-square","updated_datetime_icon":"fa-solid fa-arrows-rotate"},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.36"},"waline":{"server_url":null,"reaction":false,"version":"3.2.1"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":true},"footer":{"since":2020,"word_count":true,"site_deploy":{"enable":true,"provider":"github","url":"https://github.com/WxylkxyZz"},"record":{"enable":false,"list":[{"code":null,"link":null}]}},"inject":{"enable":true,"css":[null,"/css/custom-1.css"],"js":[null,"/js/custom-1.js"]},"root":"","source_data":{"links":[{"name":"XPoet","link":"https://xpoet.cn/","description":"懒惰是程序员第一生产力","avatar":"https://cdn.staticaly.com/gh/XPoet/image-hosting@master/common-use/avatar.jpg"},{"name":"吾爱破解","link":"https://www.52pojie.cn/","description":null,"avatar":null}]},"version":"4.1.3"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="https://cdn.statically.io/gh/CoisiniZz/images@main/flows/image.2yni2qpf428.webp">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               Keep Throb
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-house"></i>
+                                
+                                首页
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-box-archive"></i>
+                                
+                                归档
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-people-pulling"></i>
+                                
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/"
+                    >首页</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives"
+                    >归档</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about"
+                    >关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        极验js逆向
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="https://cdn.statically.io/gh/CoisiniZz/images@main/flows/head.2rn5pc5z7u20.webp">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">WxylkxyZz</span>
+                                
+                                    <span class="author-badge">Three</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-pen-to-square"></i>&nbsp;
+                <span class="datetime">2026-11-20 09:43:45</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-arrows-rotate"></i>&nbsp;
+                <span class="datetime" data-updated="Fri Nov 20 2026 09:43:45 GMT+0800">2026-11-20 09:43:45</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E6%9E%81%E9%AA%8C/">极验</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/JS%E9%80%86%E5%90%91/">JS逆向</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E9%AA%8C%E8%AF%81%E7%A0%81/">验证码</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>1.9k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>9 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+                        <div class="post-aging-tips"
+                             data-update-date="Fri Nov 20 2026 09:43:45 GMT+0800"
+                             data-aging-days="30"
+                        >
+                            <i class="fa-solid fa-circle-exclamation"></i>本文距离上次更新已过去 <span class="days">0</span> 天，部分内容可能已经过时，请注意甄别。
+                        </div>
+                    
+
+                    <p>极验还算简单,记录下过程</p>
+<span id="more"></span>
+
+<h1 id="分析请求"><a href="#分析请求" class="headerlink" title="分析请求"></a>分析请求</h1><p><strong>初始页面</strong></p>
+<p>初始页面加载了一些<code>js</code>,发送了三个<code>request</code></p>
+<table>
+<thead>
+<tr>
+<th>reqeust</th>
+<th>parame</th>
+<th>response</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>register-slide</code></td>
+<td>时间戳</td>
+<td><code>challenge</code>、<code>gt</code></td>
+</tr>
+<tr>
+<td><code>gettype.php</code></td>
+<td><code>gt</code>、<code>callback</code>(也是时间戳)</td>
+<td>一些<code>js</code>路径、<code>status</code></td>
+</tr>
+<tr>
+<td><code>get.php</code></td>
+<td><code>challenge</code>、<code>gt</code>、<code>w</code>、<code>callback</code></td>
+<td><code>c</code>、<code>s</code>、<code>status</code>…</td>
+</tr>
+</tbody></table>
+<p><strong>点击按钮</strong></p>
+<table>
+<thead>
+<tr>
+<th>reqeust</th>
+<th>parame</th>
+<th>response</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ajax.php</code></td>
+<td><code>challenge</code>、<code>gt</code>、<code>w</code></td>
+<td><code>slide</code>、<code>status</code></td>
+</tr>
+<tr>
+<td><code>get.php</code></td>
+<td><code>gt</code>、<code>callback</code>、<code>type</code>、<code>callback</code></td>
+<td><code>bg、slice、fullbg</code>(带缺口的背景图 滑块图 不带缺口背景图),<code>c</code>,<code>challenge</code>,<code>gt</code>,<code>s</code>…</td>
+</tr>
+</tbody></table>
+<p><strong>开始拖动</strong></p>
+<table>
+<thead>
+<tr>
+<th>reqeust</th>
+<th>parame</th>
+<th>response</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ajax.php</code></td>
+<td><code>challenge</code>、<code>gt</code>、<code>w</code>、<code>callback</code></td>
+<td>成功: <code>success: 1</code>、<code>message: success</code>、<code>score</code>、<code>validate</code></td>
+</tr>
+<tr>
+<td><code>ajax.php</code></td>
+<td><code>challenge</code>、<code>gt</code>、<code>w</code>、<code>callback</code></td>
+<td>成功: <code>success: 0</code>、<code>message: fail</code></td>
+</tr>
+</tbody></table>
+<p><strong>点击提交</strong></p>
+<table>
+<thead>
+<tr>
+<th>reqeust</th>
+<th>parame</th>
+<th>response</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>demo/gt/validate-slide</code></td>
+<td><code>geetest_challenge</code>、<code>geetest_validate</code>、<code>geetest_seccode</code></td>
+<td><code>status</code>、<code>info</code></td>
+</tr>
+</tbody></table>
+<p>PS： 前面的<code>w</code>置空也能请求成功，干最后一个<code>w</code>即可</p>
+<h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><p>每次滑动滑对滑错都会发一个请求,跟栈进去打断点,一直跟会跟到<code>w</code>的定义处</p>
+<p>PS:也可直接搜索特征码<code>&quot;\u0077&quot;</code></p>
+<p><code>w = h+u</code></p>
+<h2 id="u"><a href="#u" class="headerlink" title="u"></a><code>u</code></h2><ol>
+<li>先找<code>u</code>(没有参数好弄一点) 打断点跟进，发现<code>return</code>了一个<code>e</code> -&gt; <code>u</code>&#x3D;<code>e</code> -&gt; 看<code>e</code>的定义</li>
+</ol>
+<p><code>var e = new U()[$_CBFJN(392)](this[$_CBGAK(744)](t))</code> -&gt; <code>new U()[&quot;encrypt&quot;](this[&quot;$_CCEc&quot;](t))</code></p>
+<p>PS:</p>
+<ol>
+<li><code>typeof(t)=undefind，typeof(this[$_CBGAK(744)](t))=string</code> 提前看好变量类型 下面<code>return</code>避免出错</li>
+<li>我多次调试发现<code>t()</code>断不住，后面多尝试了几次发现只有刷新页面第一次点击’点击…进行验证’才会断住，只刷新滑块不行</li>
+</ol>
+<p><code>this[&quot;$_CCEc&quot;](t)</code> &#x3D; <code>Ot</code>-&gt; <code>Ot=rt()</code> -&gt; <code>rt()</code>&#x3D;<code>t()+t()+t()+t()</code> -&gt; <code>t()</code></p>
+<p><code>t()</code> &#x3D; <code>return (65536 * (1 + Math[&#39;random&#39;]()) | 0)[&#39;toString&#39;](16)[&#39;substring&#39;](1)</code></p>
+<p><code>this[$_CBGAK(744)](t)</code> &#x3D; <code>t()</code>四次调用相加,改写替换即可</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">randomStr</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> data = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> index = <span class="number">0</span>; index &lt; <span class="number">4</span>; index++) &#123;</span><br><span class="line">        data += (<span class="number">65536</span> * (<span class="number">1</span> + <span class="title class_">Math</span>[<span class="string">&quot;random&quot;</span>]()) | <span class="number">0</span>)[<span class="string">&quot;toString&quot;</span>](<span class="number">16</span>)[<span class="string">&quot;substring&quot;</span>](<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>new U()[‘encrypt’] 看到这个词大概猜是rsa</p>
+</li>
+<li><p>看U()这个类中的setPublic函数,可以找到公钥模数和公钥指数,得到公钥后我们可以自己复现对照一下看是否是标准rsa加密。</p>
+</li>
+<li><p>扣代码</p>
+</li>
+</ol>
+<p>这里选择扣代码， 因为我觉得扣代码比较简单🤭</p>
+<h2 id="h"><a href="#h" class="headerlink" title="h"></a><code>h</code></h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">l = V[$_CAHJS(<span class="number">392</span>)](gt[$_CAIAK(<span class="number">254</span>)](o), r[$_CAIAK(<span class="number">744</span>)]())</span><br><span class="line">h = m[$_CAIAK(<span class="number">792</span>)](l)</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数-l"><a href="#参数-l" class="headerlink" title="参数 l"></a>参数 <code>l</code></h3><p><code>r[$_CAIAK(744)]()</code> &#x3D; <code>randomStr()</code><br><code>l = V[&quot;encrypt&quot;](gt[&quot;stringify&quot;](o), randomStr())</code><br>手动解混淆后， 发现<code>gt[&quot;stringify&quot;]()</code>跟<code>JSON.stringify()</code>作用一样，<br>也就是说要找到</p>
+<ol>
+<li>参数<code>o</code></li>
+<li>加密方法<code>V[&quot;encrypt&quot;]</code></li>
+</ol>
+<h4 id="参数-o"><a href="#参数-o" class="headerlink" title="参数 o"></a>参数 <code>o</code></h4><p>向上找几行即可找到o的定义处, 发现是个obj多打印几次看看哪些值有变化</p>
+<p>4个参数发生变化<br><code>userresponse</code>、<code>passtime</code>、<code>aa</code>、<code>rp</code><br>找四个参数即可</p>
+<h5 id="aa"><a href="#aa" class="headerlink" title="aa"></a><code>aa</code></h5><p><code>aa</code> &#x3D; <code>e</code>，<code>e</code>又是<code>function(t, e, n)</code>传进来的，往上跟栈，<code>e=l</code></p>
+<p><code>l = n[$_DAAAU(985)][$_CJJJU(1075)](n[$_CJJJU(985)][$_CJJJU(1073)](), n[$_CJJJU(67)][$_CJJJU(1033)], n[$_DAAAU(67)][$_CJJJU(345)]);</code><br>解混淆<br><code>l = n[&quot;$_CICO&quot;][&quot;$_BBED&quot;](n[&quot;$_CICO&quot;][&quot;$_FD_&quot;](), n[&quot;$_CJk&quot;][&quot;c&quot;], n[&quot;$_CJk&quot;][&quot;s&quot;])</code><br>大概就是一个函数传了三个参数<br>分别查看三个参数，发现后两个好像见过 <em>(在分析请求中)</em> 进行对比发现是同一个值<code>c、s</code>，所以找第一个参数即可<br>第一个参数是一个函数返回的 进入函数分析<br>第一行开始做事的地方</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> t = <span class="keyword">function</span>(<span class="params">t</span>) &#123;</span><br><span class="line">    xxxx</span><br><span class="line">&#125;(<span class="variable language_">this</span>[$_BEGJO(<span class="number">359</span>)])</span><br></pre></td></tr></table></figure>
+
+<p>打印<code>this[$_BEGJO(359)]</code>像是个轨迹值，包含16个数组的obj，在经过这个函数后返回了一个15个数组的obj<br>看到函数中做了一些运算，应该是对轨迹数组做了一些处理。<br>然后定义了三个空列表</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">r = []</span><br><span class="line">, i = []</span><br><span class="line">, o = [];</span><br></pre></td></tr></table></figure>
+
+<p>最后return了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> <span class="title function_">ct</span>(t)[$_BEHAO(<span class="number">59</span>)](</span><br><span class="line"><span class="keyword">function</span>(<span class="params">t</span>) &#123;</span><br><span class="line">    xxx</span><br><span class="line">&#125;),</span><br><span class="line">r[$_BEGJO(<span class="number">405</span>)]($_BEHAO(<span class="number">2</span>)) + $_BEHAO(<span class="number">457</span>) + i[$_BEGJO(<span class="number">405</span>)]($_BEGJO(<span class="number">2</span>)) + $_BEGJO(<span class="number">457</span>) + o[$_BEGJO(<span class="number">405</span>)]($_BEGJO(<span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+
+<p>解混淆后</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> <span class="title function_">ct</span>(t)[$_BEHAO(<span class="number">59</span>)](<span class="title function_">func</span>(<span class="params">t</span>)&#123;&#125;(t)),</span><br><span class="line">r[<span class="string">&#x27;join&#x27;</span>](<span class="string">&#x27;&#x27;</span>) + <span class="string">&#x27;!!&#x27;</span> + i[<span class="string">&#x27;join&#x27;</span>](<span class="string">&#x27;&#x27;</span>) + <span class="string">&#x27;!!&#x27;</span> + o[<span class="string">&#x27;join&#x27;</span>](<span class="string">&#x27;&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><code>new ct(t)[$_BEHAO(59)]() </code> 创建了一个新对象,t是传给构造函数的参数, 调用该对象的<code>$_BEHAO(59)</code>方法，然后把传入了一个自执行函数,这个func把t做参数进行运算分别往三个空数组里<code>push</code>值，最后把返回三个数据的拼接值</p>
+<p>改写加扣代码即可 传入轨迹组track</p>
+<p>测试对不对<br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/./%E6%9E%81%E9%AA%8C/aa.png"
+                        alt="测试"
+                 ></p>
+<h5 id="userresponse"><a href="#userresponse" class="headerlink" title="userresponse"></a><code>userresponse</code></h5><p><code>userresponse = H(t, i[&quot;challenge&quot;)</code></p>
+<ol>
+<li><code>i[&quot;challenge&quot;)</code>就是我们请求&#x2F;get.php?时候返回的<code>challenge</code></li>
+<li><code>t</code>是通过<code>function(t, e, n)</code>传进来的 所以往上跟栈<br>在<code>r[$_DAAAU(1051)](u, l, n[$_DAAAU(852)])</code>调用了<code>function(t, e, n)</code><br>也就是说 <code>t</code>&#x3D;<code>u</code> &#x3D; <code>_</code><br><code>_ = e ? n[$_DAAAU(1028)][$_CJJJU(203)] : t[$_CJJJU(960)]() / a - n[$_CJJJU(930)]</code><br>解混淆<br><code>_ = e ? n[&quot;lastPoint&quot;][&quot;x&quot;] : t[&quot;$_BGCr&quot;]() / a - n[&quot;$_CIAT&quot;]</code><br><code>e</code>是undefind类型所以一定会等于后半段，但是多次测试，前后两个值相等<br>前面值字面像是最后一个x的位置的值调试对比看看<br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/./%E6%9E%81%E9%AA%8C/userresponse_t.png"
+                       
+                 ></li>
+</ol>
+<h5 id="passtime"><a href="#passtime" class="headerlink" title="passtime"></a><code>passtime</code></h5><p><code>passtime</code> &#x3D; <code>n</code>,也是由<code>function(t, e, n)</code>传进来的,继续跟栈，<br>这里不着急往上跟, 分析一下<code>userresponse</code>用到了轨迹值，(x,y,z)是坐标跟时间，大胆猜测<code>passtime</code>会不会就是最后的<code>z</code>呢？ 测试对比下. 还真是<br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/./%E6%9E%81%E9%AA%8C/passtime.png"
+                       
+                 ></p>
+<h5 id="rp"><a href="#rp" class="headerlink" title="rp"></a><code>rp</code></h5><p><code>o[$_CAIAK(793)] = X(i[$_CAIAK(122)] + i[$_CAIAK(134)][$_CAIAK(187)](0, 32) + o[$_CAHJS(725)])</code></p>
+<p>解混淆<br><code>o[&quot;rp&quot;] = X(i[&quot;gt&quot;] + i[&quot;challenge&quot;][&quot;slice&quot;](0, 32) + o[&quot;passtime&quot;])</code></p>
+<p>比较简单传值即可</p>
+<h4 id="V-quot-encrypt-quot"><a href="#V-quot-encrypt-quot" class="headerlink" title="V[&quot;encrypt&quot;]"></a><code>V[&quot;encrypt&quot;]</code></h4><p>把<code>V</code>扣下来就行</p>
+<h3 id="m-CAIAK-792"><a href="#m-CAIAK-792" class="headerlink" title="m[$_CAIAK(792)]"></a><code>m[$_CAIAK(792)]</code></h3><p>一样的把<code>m</code>方法扣下来即可</p>
+<h1 id="底图还原"><a href="#底图还原" class="headerlink" title="底图还原"></a>底图还原</h1><h1 id="小tips"><a href="#小tips" class="headerlink" title="小tips"></a>小tips</h1><p>这里有几个需要注意的点</p>
+<ol>
+<li>需要用到的参数都是<code>get.php</code>返回的,不能用前面的</li>
+<li>16位随机值需要相同</li>
+</ol>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>轨迹处打断点，拿参数本地生成<code>w</code>,再<code>request</code>测试</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/./%E6%9E%81%E9%AA%8C/successs.png"
+                       
+                 ></p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>代码过长只截取了自己改写的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">get_o_aa</span>(<span class="params">track, c, s</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> W[$_CJFt(<span class="number">236</span>)][<span class="string">&quot;\u0024\u005f\u0042\u0042\u0045\u0044&quot;</span>](W[$_CJFt(<span class="number">236</span>)][<span class="string">&quot;\u0024\u005f\u0046\u0044\u005f&quot;</span>](<span class="title class_">JSON</span>.<span class="title function_">parse</span>(track)), c, s)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">get_o_userresponse</span>(<span class="params">track, challenge</span>) &#123;</span><br><span class="line">    track = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(track)</span><br><span class="line">    t = track[track.<span class="property">length</span> - <span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">H</span>(t, challenge)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">get_o_passtime</span>(<span class="params">track</span>) &#123;</span><br><span class="line">    track = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(track)</span><br><span class="line">    passtime = track[track.<span class="property">length</span> - <span class="number">1</span>][<span class="number">2</span>]</span><br><span class="line">    <span class="keyword">return</span> passtime</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">get_o_rp</span>(<span class="params">gt, challenge, passtime</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">X</span>(gt + challenge[<span class="string">&quot;slice&quot;</span>](<span class="number">0</span>, <span class="number">32</span>) + passtime);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">get_u</span>(<span class="params">randomString</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title function_">U</span>()[$_CBFJN(<span class="number">392</span>)](randomString);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">get_l</span>(<span class="params">track, challenge, c, s, gt, randomString</span>) &#123;</span><br><span class="line">    o = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(&#123;</span><br><span class="line">        <span class="string">&quot;lang&quot;</span>: <span class="string">&quot;zh-cn&quot;</span>,</span><br><span class="line">        <span class="string">&quot;userresponse&quot;</span>: <span class="title function_">get_o_userresponse</span>(track, challenge),</span><br><span class="line">        <span class="string">&quot;passtime&quot;</span>: <span class="title function_">get_o_passtime</span>(track),</span><br><span class="line">        <span class="string">&quot;imgload&quot;</span>: <span class="number">63</span>,</span><br><span class="line">        <span class="string">&quot;aa&quot;</span>: <span class="title function_">get_o_aa</span>(track, c, s),</span><br><span class="line">        <span class="string">&quot;ep&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;v&quot;</span>: <span class="string">&quot;7.9.2&quot;</span>,</span><br><span class="line">            <span class="string">&quot;$_BIE&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;me&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="string">&quot;tm&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;a&quot;</span>: <span class="number">1705286215423</span>,</span><br><span class="line">                <span class="string">&quot;b&quot;</span>: <span class="number">1705286215833</span>,</span><br><span class="line">                <span class="string">&quot;c&quot;</span>: <span class="number">1705286215833</span>,</span><br><span class="line">                <span class="string">&quot;d&quot;</span>: <span class="number">0</span>,</span><br><span class="line">                <span class="string">&quot;e&quot;</span>: <span class="number">0</span>,</span><br><span class="line">                <span class="string">&quot;f&quot;</span>: <span class="number">1705286215424</span>,</span><br><span class="line">                <span class="string">&quot;g&quot;</span>: <span class="number">1705286215424</span>,</span><br><span class="line">                <span class="string">&quot;h&quot;</span>: <span class="number">1705286215424</span>,</span><br><span class="line">                <span class="string">&quot;i&quot;</span>: <span class="number">1705286215424</span>,</span><br><span class="line">                <span class="string">&quot;j&quot;</span>: <span class="number">1705286215424</span>,</span><br><span class="line">                <span class="string">&quot;k&quot;</span>: <span class="number">0</span>,</span><br><span class="line">                <span class="string">&quot;l&quot;</span>: <span class="number">1705286215482</span>,</span><br><span class="line">                <span class="string">&quot;m&quot;</span>: <span class="number">1705286215829</span>,</span><br><span class="line">                <span class="string">&quot;n&quot;</span>: <span class="number">1705286215831</span>,</span><br><span class="line">                <span class="string">&quot;o&quot;</span>: <span class="number">1705286215835</span>,</span><br><span class="line">                <span class="string">&quot;p&quot;</span>: <span class="number">1705286216067</span>,</span><br><span class="line">                <span class="string">&quot;q&quot;</span>: <span class="number">1705286216067</span>,</span><br><span class="line">                <span class="string">&quot;r&quot;</span>: <span class="number">1705286216069</span>,</span><br><span class="line">                <span class="string">&quot;s&quot;</span>: <span class="number">1705286216069</span>,</span><br><span class="line">                <span class="string">&quot;t&quot;</span>: <span class="number">1705286216069</span>,</span><br><span class="line">                <span class="string">&quot;u&quot;</span>: <span class="number">1705286216069</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;td&quot;</span>: -<span class="number">1</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;h9s9&quot;</span>: <span class="string">&quot;1816378497&quot;</span>,</span><br><span class="line">        <span class="string">&quot;rp&quot;</span>: <span class="title function_">get_o_rp</span>(gt, challenge, <span class="title function_">get_o_passtime</span>(track))</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> V[$_CAHJS(<span class="number">392</span>)](o, randomString)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">get_h</span>(<span class="params">track, challenge, c, s, gt, randomString</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> l = <span class="title function_">get_l</span>(track, challenge, c, s, gt, randomString);</span><br><span class="line">    <span class="keyword">var</span> i;</span><br><span class="line">    <span class="keyword">return</span> m[$_CAIAK(<span class="number">792</span>)](l)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">get_w</span>(<span class="params">track, challenge, c, s, gt</span>) &#123;</span><br><span class="line">    randomString = <span class="title function_">randomStr</span>()</span><br><span class="line">    <span class="keyword">var</span> h = <span class="title function_">get_h</span>(track, challenge, c, s, gt, randomString);</span><br><span class="line">    <span class="keyword">var</span> u = <span class="title function_">get_u</span>(randomString);</span><br><span class="line">    <span class="keyword">return</span> h + u</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// var track = &#x27;[[-42,-18,0],[0,0,0],[19,0,109],[20,0,124],[21,0,238],[25,0,244],[28,0,253],[30,0,260],[33,0,268],[34,0,279],[36,0,284],[37,0,308],[37,0,484]]&#x27;</span></span><br><span class="line"><span class="comment">// var c = [12, 58, 98, 36, 43, 95, 62, 15, 12]</span></span><br><span class="line"><span class="comment">// var s = &#x27;6c566a2d&#x27;</span></span><br><span class="line"><span class="comment">// var challenge = &#x27;5903566be242ec3492a5a39de8c1364elk&#x27;</span></span><br><span class="line"><span class="comment">// var gt = &#x27;019924a82c70bb123aae90d483087f94&#x27;</span></span><br><span class="line"><span class="comment">// console.log(get_w(track, challenge, c, s, gt).length)</span></span><br></pre></td></tr></table></figure>
+
+                </div>
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                极验js逆向
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2026/11/20/geetest-js-reverse/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">WxylkxyZz</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2026-11-20 09:43</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E6%9E%81%E9%AA%8C/">极验</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/JS%E9%80%86%E5%90%91/">JS逆向</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E9%AA%8C%E8%AF%81%E7%A0%81/">验证码</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2026/11/17/magpie-wsl-experience/"
+                                   title="127.0.0.1 到底是谁的？Claude Desktop 连 WSL2 本地网关的九层排障记"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">127.0.0.1 到底是谁的？Claude Desktop 连 WSL2 本地网关的九层排障记</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <!-- use hexo-blog-encrypt -->
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E8%AF%B7%E6%B1%82"><span class="nav-number">1.</span> <span class="nav-text">分析请求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E8%AF%95"><span class="nav-number">2.</span> <span class="nav-text">调试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u"><span class="nav-number">2.1.</span> <span class="nav-text">u</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#h"><span class="nav-number">2.2.</span> <span class="nav-text">h</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0-l"><span class="nav-number">2.2.1.</span> <span class="nav-text">参数 l</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0-o"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">参数 o</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#aa"><span class="nav-number">2.2.1.1.1.</span> <span class="nav-text">aa</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#userresponse"><span class="nav-number">2.2.1.1.2.</span> <span class="nav-text">userresponse</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#passtime"><span class="nav-number">2.2.1.1.3.</span> <span class="nav-text">passtime</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rp"><span class="nav-number">2.2.1.1.4.</span> <span class="nav-text">rp</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#V-quot-encrypt-quot"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">V[&quot;encrypt&quot;]</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#m-CAIAK-792"><span class="nav-number">2.2.2.</span> <span class="nav-text">m[$_CAIAK(792)]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%95%E5%9B%BE%E8%BF%98%E5%8E%9F"><span class="nav-number">3.</span> <span class="nav-text">底图还原</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8Ftips"><span class="nav-number">4.</span> <span class="nav-text">小tips</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">5.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text">代码</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+        &copy;&nbsp;<span>2020</span>&nbsp;-&nbsp;2026
+        
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">WxylkxyZz</a>
+        
+    </div>
+
+    <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+        
+        <div class="deploy-info info-item">
+            
+                <a target="_blank" rel="nofollow" href="https://github.com/WxylkxyZz">
+            
+            本站由 <span class="tooltip" data-tooltip-content="GitHub Pages"><img src="/images/brands/github.png"></span> 提供部署服务
+            
+                </a>
+            
+        </div>
+    
+
+    
+        <div class="count-info info-item">
+            
+                <span class="count-item border-box word">
+                    <span class="item-type border-box">总字数</span>
+                    <span class="item-value border-box word">51.9k</span>
+                </span>
+            
+
+            
+                <span class="count-item border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-item border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    
+
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-toggle-theme-mode flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <!-- use hexo-blog-encrypt -->
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E8%AF%B7%E6%B1%82"><span class="nav-number">1.</span> <span class="nav-text">分析请求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E8%AF%95"><span class="nav-number">2.</span> <span class="nav-text">调试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u"><span class="nav-number">2.1.</span> <span class="nav-text">u</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#h"><span class="nav-number">2.2.</span> <span class="nav-text">h</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0-l"><span class="nav-number">2.2.1.</span> <span class="nav-text">参数 l</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0-o"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">参数 o</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#aa"><span class="nav-number">2.2.1.1.1.</span> <span class="nav-text">aa</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#userresponse"><span class="nav-number">2.2.1.1.2.</span> <span class="nav-text">userresponse</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#passtime"><span class="nav-number">2.2.1.1.3.</span> <span class="nav-text">passtime</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rp"><span class="nav-number">2.2.1.1.4.</span> <span class="nav-text">rp</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#V-quot-encrypt-quot"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">V[&quot;encrypt&quot;]</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#m-CAIAK-792"><span class="nav-number">2.2.2.</span> <span class="nav-text">m[$_CAIAK(792)]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%95%E5%9B%BE%E8%BF%98%E5%8E%9F"><span class="nav-number">3.</span> <span class="nav-text">底图还原</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8Ftips"><span class="nav-number">4.</span> <span class="nav-text">小tips</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">5.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text">代码</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/libs/anime.min.js"></script>
+
+<!-- local-search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/lazyload.js"></script>
+
+
+<div class="pjax">
+    
+        <!-- post-helper -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/post/share.js"></script>
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.3/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+    
+        
+    
+        
+            
+<script class="custom-inject-js" src="/js/custom-1.js" data-pjax></script>
+
+        
+    
+
+</body>
+</html>
